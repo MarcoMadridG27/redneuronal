@@ -46,6 +46,7 @@ int main() {
         std::cout << "Etiqueta predicha: " << predicted_label << std::endl;
 
         // Visualizar la imagen
+        std::cout << "Visualizando la imagen:" << std::endl;
         display_image(test_images[index], 28, 28);
 
     } catch (const std::exception& e) {

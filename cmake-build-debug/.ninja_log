@@ -50,3 +50,7 @@
 7	659	7551248330526373	CMakeFiles/redneuronal.dir/src/network.cpp.obj	52a93666d3949b75
 2	1187	7551248335775477	CMakeFiles/redneuronal.dir/src/main.cpp.obj	83bb03d6c2be372b
 1188	1310	7551248336980480	redneuronal.exe	186a65b92eb0e7e4
+9	1053	7551260931479291	CMakeFiles/redneuronal.dir/src/dataset.cpp.obj	17e017f6c9fa12bb
+13	1129	7551260932264499	CMakeFiles/redneuronal.dir/src/network.cpp.obj	52a93666d3949b75
+5	2281	7551260943675600	CMakeFiles/redneuronal.dir/src/main.cpp.obj	83bb03d6c2be372b
+2282	2533	7551260946148660	redneuronal.exe	186a65b92eb0e7e4

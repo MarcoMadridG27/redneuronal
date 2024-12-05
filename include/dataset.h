@@ -27,7 +27,7 @@ private:
         file.read(reinterpret_cast<char*>(&header), sizeof(header));
         header = convert_big_endian(header);
 
-        // Verificar dimensiones del archivo
+        // Validar el encabezado
         if (header.rows == 0 || header.columns == 0 || header.images == 0) {
             throw std::runtime_error("Error: el archivo de imágenes tiene dimensiones inválidas.");
         }
@@ -37,6 +37,9 @@ private:
         for (auto& image : images) {
             std::vector<uint8_t> buffer(header.rows * header.columns);
             file.read(reinterpret_cast<char*>(buffer.data()), buffer.size());
+            if (file.gcount() != static_cast<std::streamsize>(buffer.size())) {
+                throw std::runtime_error("Error: no se pudieron leer todas las imágenes del archivo.");
+            }
             for (size_t i = 0; i < buffer.size(); ++i) {
                 image[i] = static_cast<T>(buffer[i]) / static_cast<T>(255.0); // Normalización
             }
@@ -58,18 +61,26 @@ private:
         magic_number = to_big_endian(magic_number);
         num_items = to_big_endian(num_items);
 
+        // Validar encabezado
+        if (magic_number != 2049) {
+            throw std::runtime_error("Error: el archivo de etiquetas no tiene un encabezado válido.");
+        }
+
         // Leer etiquetas
         std::vector<int> labels(num_items);
         for (size_t i = 0; i < num_items; ++i) {
             uint8_t label;
             file.read(reinterpret_cast<char*>(&label), sizeof(label));
+            if (file.gcount() != sizeof(label)) {
+                throw std::runtime_error("Error: no se pudieron leer todas las etiquetas del archivo.");
+            }
             labels[i] = static_cast<int>(label);
         }
         return labels;
-
     }
 
 public:
+    // Constructor que inicializa los datos de entrenamiento y prueba
     Dataset(const std::string& train_image_path,
             const std::string& train_label_path,
             const std::string& test_image_path,
@@ -80,6 +91,7 @@ public:
         test_labels = read_labels(test_label_path);
     }
 
+    // Métodos para acceder a los datos
     const Matrix<T>& get_training_images() const { return training_images; }
     const std::vector<int>& get_training_labels() const { return training_labels; }
     const Matrix<T>& get_test_images() const { return test_images; }
