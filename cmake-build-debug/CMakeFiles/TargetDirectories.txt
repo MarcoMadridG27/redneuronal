@@ -1,0 +1,3 @@
+C:/Users/ASUS/CLionProjects/redneuronal/cmake-build-debug/CMakeFiles/redneuronal.dir
+C:/Users/ASUS/CLionProjects/redneuronal/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ASUS/CLionProjects/redneuronal/cmake-build-debug/CMakeFiles/rebuild_cache.dir
